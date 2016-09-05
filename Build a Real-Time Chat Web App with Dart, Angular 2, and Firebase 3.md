@@ -54,3 +54,19 @@ The world could always use another chat application, right? Yes! So let's make o
 
 ### How It Works
 Your chat app will be a web application written with Dart and Angular 2, and it will run in a web browser. During development, you'll run it in [Dartium](https://webdev.dartlang.org/tools/dartium), which is a special build of Chromium that includes the Dart virtual machine. Each running client will post a user's chat messages to a Firebase NoSQL database (sometimes just called a Firebase), and all clients will automatically receive any changes to it. Changes in hand, the client will update the display.
+
+## Step 1: Get the Starter Code
+Since this tutorial isn't about HTML, CSS, or UI, you're going to start off with all of that already done.
+
+### Download
+Visit the [GitHub repository](https://github.com/montyr75/dart_chat_ng2_fb3_start/) and either clone it or download a ZIP file. You'll see a handy, green _Clone or download_ button on the site to help you with this.
+
+### Open Project and Acquire Dependencies
+Open the project in your favorite IDE. If you're using WebStorm (recommended), you need only open the **pubspec.yaml** file and you'll see a _Get dependencies_ link in the upper-right of the editor. Alternatively, this command is available from the file's context menu in the Project panel.
+
+With lesser editors, you can get your dependencies using the command line. Be sure to navigate to your project's root first:
+
+    pub get
+
+## Step 2: Create a Firebase Project and Set Up Your App
+Before you can use a Firebase database, you need to log into the Firebase site and create a new project.
