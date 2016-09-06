@@ -2,6 +2,8 @@ In this tutorial, you're going to build a real-time chat web app that supports G
 
 Oh, and let's not forget that the app will be structured by everyone's favorite framework, [Angular 2](https://angular.io/). With such a structure in place, it will be easy to maintain and expand the code to create a more full-featured chat app. It will also save you from having to write lots of DOM-manipulation code, and it will divide up code tasks into services and components to maximize reusability.
 
+The code was tested with Dart SDK 1.19.0 and Angular 2.0.0-beta.20.
+
 ## Credit
 This tutorial was modeled after the JavaScript version appearing here: [Firebase: Build a Real Time Web Chat App](https://codelabs.developers.google.com/codelabs/firebase-web/).
 
@@ -70,3 +72,46 @@ With lesser editors, you can get your dependencies using the command line. Be su
 
 ## Step 2: Create a Firebase Project and Set Up Your App
 Before you can use a Firebase database, you need to log into the Firebase site and create a new project.
+
+### Create Project
+In the [Firebase Console](https://console.firebase.google.com/), click on _CREATE NEW PROJECT_. You can name it whatever you like, but it can help to give it the same name as your app. And don't worry! Firebase has a very generous free tier, so it typically won't cost you anything to develop a new app.
+
+![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/b956b992f90b2076.png)
+
+### Get Your Web App Credentials
+In the Firebase Console, in the _Overview_ section, click the _Add Firebase to your web app_ button.
+
+![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/7b81812f17feca63.png)
+
+This will reveal an HTML/JavaScript snippet that looks something like this:
+
+![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/2d1763dad02edba6.png)
+
+> **Warning!**
+> If your `storageBucket` property is empty (`""`), you've just encountered an unfortunate bug. If you close the dialog and re-open it, it will correct itself.
+
+Of course, the values of the properties will be different from those shown here. They will be unique to your project.
+
+### Add the Credentials to Your App
+
+Since we're not dealing with JavaScript here, we can't use this snippet directly, but almost. Simply copy each property's value into the corresponding place inside your Angular service file:
+
+**lib/services/firebase_service.dart**
+
+    fb.initializeApp(
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        storageBucket: ""
+    );
+
+We'll go over everything in this file and what it means later. For now, just get your Firebase values in there.
+
+### Enable Google Auth
+Your chat users are going to use their Google IDs to log into your app, and Firebase is going to help you make that possible. First, you need to enable Google authentication in your Firebase Console.
+
+Click _Auth_ in the left-side navigation, then select the _SIGN-IN METHOD_ tab. Edit the _Google_ provider entry, and you should see something like this:
+
+![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/1e7a17d97761d124.png)
+
+Make sure the _Enable_ switch is turned on.

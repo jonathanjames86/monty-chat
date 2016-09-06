@@ -1,5 +1,5 @@
-name: dart_chat_ng2_fb3_start
-description: A Dart chat app that uses Angular 2 and Firebase 3
+name: dart_chat_ng2_fb3
+description: A Dart chat app that uses Angular 2
 version: 0.0.1
 
 environment:
@@ -9,6 +9,7 @@ dependencies:
   angular2: 2.0.0-beta.20
   browser: ^0.10.0
   dart_to_js_script_rewriter: ^1.0.1
+  firebase3: 0.2.1
 
 transformers:
 - angular2:
