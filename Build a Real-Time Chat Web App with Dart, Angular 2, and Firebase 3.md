@@ -2,7 +2,7 @@ In this tutorial, you're going to build a real-time chat web app that supports G
 
 Oh, and let's not forget that the app will be structured by everyone's favorite framework, [Angular 2](https://angular.io/). With such a structure in place, it will be easy to maintain and expand the code to create a more full-featured chat app. It will also save you from having to write lots of DOM-manipulation code, and it will divide up code tasks into services and components to maximize reusability.
 
-The code was tested with Dart SDK 1.19.0 and Angular 2.0.0-beta.20.
+The code was tested with Dart SDK 1.19.0 and Angular Dart 2.0.0-beta.20.
 
 ## Credit
 This tutorial was modeled after the JavaScript version appearing here: [Firebase: Build a Real Time Web Chat App](https://codelabs.developers.google.com/codelabs/firebase-web/).
@@ -76,16 +76,16 @@ Before you can use a Firebase database, you need to log into the Firebase site a
 ### Create Project
 In the [Firebase Console](https://console.firebase.google.com/), click on _CREATE NEW PROJECT_. You can name it whatever you like, but it can help to give it the same name as your app. And don't worry! Firebase has a very generous free tier, so it typically won't cost you anything to develop a new app.
 
-![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/b956b992f90b2076.png)
+![Create a new project.](https://codelabs.developers.google.com/codelabs/firebase-web/img/b956b992f90b2076.png)
 
 ### Get Your Web App Credentials
 In the Firebase Console, in the _Overview_ section, click the _Add Firebase to your web app_ button.
 
-![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/7b81812f17feca63.png)
+![Add Firebase to your web app.](https://codelabs.developers.google.com/codelabs/firebase-web/img/7b81812f17feca63.png)
 
 This will reveal an HTML/JavaScript snippet that looks something like this:
 
-![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/2d1763dad02edba6.png)
+![Initialization code.](https://codelabs.developers.google.com/codelabs/firebase-web/img/2d1763dad02edba6.png)
 
 > **Warning!**
 > If your `storageBucket` property is empty (`""`), you've just encountered an unfortunate bug. If you close the dialog and re-open it, it will correct itself.
@@ -94,7 +94,7 @@ Of course, the values of the properties will be different from those shown here.
 
 ### Add the Credentials to Your App
 
-Since we're not dealing with JavaScript here, we can't use this snippet directly, but almost. Simply copy each property's value into the corresponding place inside your Angular service file:
+Since we're not dealing with JavaScript here, we can't use this snippet directly, but almost. Simply copy each property's value into the corresponding empty strings inside your Angular service file:
 
 **lib/services/firebase_service.dart**
 
@@ -105,13 +105,61 @@ Since we're not dealing with JavaScript here, we can't use this snippet directly
         storageBucket: ""
     );
 
-We'll go over everything in this file and what it means later. For now, just get your Firebase values in there.
+We'll go over everything in this file and what it means later. For now, just get your Firebase project's values in there.
 
 ### Enable Google Auth
 Your chat users are going to use their Google IDs to log into your app, and Firebase is going to help you make that possible. First, you need to enable Google authentication in your Firebase Console.
 
 Click _Auth_ in the left-side navigation, then select the _SIGN-IN METHOD_ tab. Edit the _Google_ provider entry, and you should see something like this:
 
-![A screen shot of dart_chat.](https://codelabs.developers.google.com/codelabs/firebase-web/img/1e7a17d97761d124.png)
+![Goolge auth.](https://codelabs.developers.google.com/codelabs/firebase-web/img/1e7a17d97761d124.png)
 
-Make sure the _Enable_ switch is turned on.
+Make sure the _Enable_ switch is turned on, then click _SAVE_.
+
+## Step 3: Install the Firebase Command-Line Interface
+In order to host your app on Firebase's servers, you'll need the Firebase command-line interface (CLI). If you're not interested in hosting there, you can skip this step.
+
+In the Firebase Console for your project, go to the _Hosting_ section, click _GET STARTED_, and follow the instructions to download and install the CLI. Note that it's a [NodeJS](https://nodejs.org/en/) app, so you'll need to have installed that already.
+
+![Firebase CLI.](https://codelabs.developers.google.com/codelabs/firebase-web/img/25e5a43c5b6268c7.png)
+
+Once you've got it installed, open a terminal and run:
+
+    firebase version
+    
+Make sure the response indicates that the version is 3.x.x. If it's 2.x.x, you're using an older Firebase CLI which you've either installed by mistake, or if both versions are on your system, may have precedence in your system PATH.
+
+Next, authorize the Firebase CLI by running:
+
+    firebase login
+
+Now you need to initialize your project for use by the Firebase CLI. From your project's root, run:
+
+    firebase init
+
+You will be asked a series of questions. (Questions from Firebase CLI version 3.0.7.)
+
+1. **Are you ready to proceed?** Yes. (Probably.)
+2. **What Firebase CLI feaatures do you want to setup for this folder?** You may deselect `Database: Deploy Firebase Realtime Database Rules`, but you will need the `Hosting` option to be selected.
+3. **What Firebase project do you want to associate as default?** Select your project's ID.
+4. **What do you want to use as your public directory?** For Dart projects, you'll typically want to enter `build/web` here.
+5. **Configure as a single-page app (rewrite all urls to /index.html)?** No.
+
+At this point, the CLI will write a few files to your project's **build** directory, but those will be overwritten by Dart's build process later, anyway.
+
+## Step 4: Run the App
+Now it's time to make sure you can run this thing. With a properly set-up WebStorm, this is as easy as choosing _Debug_ from the context menu (right-click, <kbd>Ctrl</kbd>-click, whatever...) of **web/index.html**. That will normally run your project in [Dartium](https://webdev.dartlang.org/tools/dartium), using [Pub Serve](https://webdev.dartlang.org/tools/pub/pub-serve).
+
+If you need to do things the hard way, navigate to your project's root directory in a terminal and run:
+
+    pub serve
+
+By default, Dart's server will run on `localhost:8080`.
+
+To launch Dartium, navigate to its directory in your finder or file explorer and double-click the Chromium executable file.
+
+> **Note:** While this tool is _referred to_ as Dartium, the executable on Mac/Linux is named `Chromium`, and on Windows it's named `chrome.exe`. For instance, if you used Dart for Windows to install the Dart SDK and Dartium, the default path to Dartium would be something like `C:\Program Files\dart\chromium\chrome.exe`. Since you'll be running this often, it might be a good idea to create a desktop shortcut for Dartium (on Windows, right-click your Desktop and select _New_ -> _Shortcut_).
+
+Enter `localhost:8080` into the address bar. If it's your first execution of a new project, be patient as Dart runs transformers on your build. Before long, you should see your running project appear.
+
+The header will look a little goofy just now, but you'll use some Angular features to fix that up soon enough.

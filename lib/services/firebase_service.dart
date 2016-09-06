@@ -13,11 +13,11 @@ class FirebaseService {
   fb.DatabaseReference _fbRefMessages;
 
   FirebaseService() {
-    fb.initializeApp(
-        apiKey: "",
-        authDomain: "",
-        databaseURL: "",
-        storageBucket: ""
-    );
+//    fb.initializeApp(
+//        apiKey: "",
+//        authDomain: "",
+//        databaseURL: "",
+//        storageBucket: ""
+//    );
   }
 }
