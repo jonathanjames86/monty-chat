@@ -16,13 +16,5 @@ import '../../services/firebase_service.dart';
 class AppComponent {
   final FirebaseService fbService;
 
-  String inputText = "";
-
-  @ViewChild('msgContainer') ElementRef msgContainer;
-  @ViewChild('msgInput') ElementRef msgInput;
-  @ViewChild('mediaCapture') ElementRef mediaCapture;
-
-  AppComponent(FirebaseService this.fbService) {
-
-  }
+  AppComponent(FirebaseService this.fbService);
 }

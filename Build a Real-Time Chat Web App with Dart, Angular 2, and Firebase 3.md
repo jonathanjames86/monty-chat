@@ -162,4 +162,4 @@ To launch Dartium, navigate to its directory in your finder or file explorer and
 
 Enter `localhost:8080` into the address bar. If it's your first execution of a new project, be patient as Dart runs transformers on your build. Before long, you should see your running project appear.
 
-The header will look a little goofy just now, but you'll use some Angular features to fix that up soon enough.
+The header will look a little goofy just now, but you'll use some Angular features to fix that up soon enough. Also, the UI doesn't do anything yet; you'll add the code for that in upcoming steps.
