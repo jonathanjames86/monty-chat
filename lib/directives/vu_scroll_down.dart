@@ -1,18 +1,17 @@
 import 'dart:html';
 import 'dart:async';
-import 'package:angular2/angular2.dart';
+import 'package:angular2/core.dart';
 
 @Directive(selector: "[vuScrollDown]")
 class VuScrollDown {
-  final ElementRef _ref;
   Element _el;
 
   MutationObserver _mo;
 
   Map<StreamSubscription, bool> loadSubs = {};
 
-  VuScrollDown(ElementRef this._ref) {
-    _el = _ref.nativeElement;
+  VuScrollDown(ElementRef ref) {
+    _el = ref.nativeElement;
     _mo = new MutationObserver(_mutation);
     _mo.observe(_el, childList: true);
   }
