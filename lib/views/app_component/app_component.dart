@@ -14,6 +14,15 @@ import '../../services/firebase_service.dart';
 )
 class AppComponent {
   final FirebaseService fbService;
-
+  String inputText = "";
   AppComponent(FirebaseService this.fbService);
+
+  void sendTextMessage() {
+  String messageText = inputText.trim();
+
+  if (messageText.isNotEmpty) {
+    fbService.sendMessage(text: messageText);
+    inputText = "";
+  }
+}
 }
