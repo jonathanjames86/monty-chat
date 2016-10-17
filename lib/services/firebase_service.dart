@@ -41,9 +41,9 @@ class FirebaseService {
     _fbAuth.signOut();
   }
 
-  Future sendMessage({String text, String imageURL}) async {
+  Future sendMessage({String text, String date, String imageURL}) async {
     try {
-      Message msg = new Message(user.displayName, text, user.photoURL, imageURL);
+      Message msg = new Message(user.displayName, text, date, user.photoURL, imageURL);
       await _fbRefMessages.push(msg.toMap());
     }
     catch (error) {

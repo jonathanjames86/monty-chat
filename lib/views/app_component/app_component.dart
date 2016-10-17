@@ -21,9 +21,11 @@ class AppComponent {
   AppComponent(FirebaseService this.fbService);
 
   void sendTextMessage() {
+    final rightNow = '${new DateTime.now()}';
+    final rightTime = '${DateTime.parse(rightNow)}';
   String messageText = inputText.trim();
     if (messageText.isNotEmpty) {
-      fbService.sendMessage(text: messageText);
+      fbService.sendMessage(text: messageText, date: rightTime);
       inputText = "";
     }
   }
