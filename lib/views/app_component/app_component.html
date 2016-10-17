@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div id="chat" [hidden]="fbService.user == null" class="card card-outline-primary flex layout vertical" style="overflow-y: hidden;">
-  <div class="msg-container flex layout vertical" style="overflow-y: auto;">
+  <div class="msg-container flex layout vertical" style="overflow-y: auto;" vuScrollDown>
     <div *ngFor="let msg of fbService.messages"
       class="message layout horizontal">
    <img [src]="msg.photoURL" class="icon">
@@ -18,10 +18,10 @@
   </div>
 
   <div id="input-container" class="card-block layout horizontal center">
-    <input type="text" class="form-control" placeholder="Message..." [(ngModel)]="inputText" (keyup.enter)="sendTextMessage()">
+    <input type="text" class="form-control" placeholder="Message..." [(ngModel)]="inputText" (keyup.enter)="sendTextMessage()" vuHoldFocus>
     <button class="btn btn-outline-primary" (click)="sendTextMessage()">Send</button>
 
-    <input #mediaCapture type="file" accept="image/*,capture=camera">
-    <button class="btn btn-outline-primary"><i class="material-icons">image</i></button>
+    <input #mediaCapture type="file" accept="image/*,capture=camera" (change)="sendImageMessage(mediaCapture.files)">
+    <button class="btn btn-outline-primary"><i class="material-icons" (click)="mediaCapture.click()">image</i></button>
   </div>
 </div>
